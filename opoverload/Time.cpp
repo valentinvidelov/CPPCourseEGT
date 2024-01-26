@@ -29,7 +29,7 @@ Time::Time(int h, int m, int s)
 
 void Time::setTime(int hh, int mm, int ss)
 { // DO NOT test for leapsecond u have no clue what you will get yourself into
-    this->hour = ( hh >= 0 && hh < 24) ? hh : 12; //if then else the funky way
+    this->hour = ( hh >= 0 && hh < 24) ? hh : 00; //if then else the funky way
     this->min = ( mm >= 0 && mm < 60) ? mm : 00;
     this->sec = (ss >=0 && ss < 60) ? ss : 00;
     this->day = 0; //initialize from day zero
