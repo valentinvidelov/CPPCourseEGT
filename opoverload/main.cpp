@@ -1,5 +1,7 @@
 #include "Time.h"
 
+//operator overload, cool stuff, takes a bit of tweaking but sorta worth it
+
 int main(){
 
     Time t1;
@@ -8,6 +10,8 @@ int main(){
     Time t4(2,8,4);
 
     cout << t1;
+    cout << "2 million seconds is: " << endl;
+    cout << (t1 += 2000000) ;
     cout << t2;
     cout << t3;
     cout << t4;

@@ -7,7 +7,7 @@ using namespace std;
 class Time{
     friend ostream &operator<<(ostream &, const Time &);
 public:
-    Time(int h=12, int m=0, int s=0);
+    Time(int h=0, int m=0, int s=0);
     void setTime(int, int, int);
     const Time &operator+=( int );
 private:

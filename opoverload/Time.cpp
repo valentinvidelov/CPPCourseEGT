@@ -35,7 +35,7 @@ void Time::setTime(int hh, int mm, int ss)
     this->day = 0; //initialize from day zero
 }
 
-const Time &Time::operator+=(int additionalSeconds)
+const Time &Time::operator+=(int additionalSeconds) //adds seconds to our time
 {
     for (int i=0; i< additionalSeconds; i++){
         helpIncrement();
