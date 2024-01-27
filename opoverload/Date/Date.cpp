@@ -48,6 +48,19 @@ Date Date::operator++( int )
    return temp; // value return; not a reference return
 } // end function operator++
 
+Date &Date::operator--()
+{
+   helpDecrement();
+   return *this;
+}
+
+Date Date::operator--(int)
+{  
+   Date temp = *this;
+   helpDecrement();
+   return temp;
+}
+
 // add specified number of days to date
 const Date &Date::operator+=( int additionalDays )
 {
@@ -95,6 +108,24 @@ void Date::helpIncrement()
          day = 1; // first day of new month
       } // end else
 } // end function helpIncrement
+
+void Date::helpDecrement()
+{
+   day--;
+   if (day < 1) {
+      month--;
+      if (month == 2 && leapYear(year)){
+         day = 29;
+      } 
+      else {
+         day = days [ month ];
+      }
+      if (month < 1){
+         year--;
+         month = 13; //13 since this gets decremented post..? no clue but 13 works 12 skips december and sends us to 30-Nov.. 13 items in days still give us index 0-12... wtf?
+      }
+   }
+}
 
 // overloaded output operator
 ostream &operator<<( ostream &output, const Date &d )

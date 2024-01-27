@@ -13,10 +13,19 @@ int main()
    Date d2( 27, 12, 1992 ); // December 27, 1992
    Date d3( 0, 99, 8045 ); // invalid date
    Date d5; // empty for inputting date
-
+   Date d6(01,03,1992);
+   Date d7(01,03,1991);
+   Date d8(01,12,1954);
+   cout << (--d7);
+   cout << (--d8);
    cout << "d1 is " << d1 << "\nd2 is " << d2 << "\nd3 is " << d3;
+   cout << "d1-- is: ";
+   cout << (d1--) << endl;
+   cout << "--d1 is: ";
+   cout << (--d1) << endl;
+   cout << "--d6 is: ";
+   cout << (--d6);
    cout << "\n\nd2 += 7 is " << ( d2 += 7 );
-
    d3.setDate( 28, 2, 1992 );
    cout << "\n\n  d3 is " << d3;
    cout << "\n++d3 is " << ++d3 << " (leap year allows 29th)";
@@ -51,6 +60,8 @@ int main()
    cout << t4;
    cout << "2 million seconds added to t4: " << endl;
    cout << (t4 += 2000000); 
+
+   
 
    return 0;
 } // end main
