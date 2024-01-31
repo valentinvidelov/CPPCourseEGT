@@ -1,0 +1,1 @@
+develop a c++ program that models a simple employee management system. this program should include classes for employees and departments, showcasing the use of objects, methods, and pointers
