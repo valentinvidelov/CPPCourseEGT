@@ -13,7 +13,7 @@ public:
 private:
     string name;
     int numEmployees = 0;
-    Employee* employees[];
+    Employee* employees[3];
 
 };
 
