@@ -8,11 +8,11 @@ public:
     Department(string);
     void addEmployee(Employee *employee);
     void displayEmployees();
-
+    int getNumEmp();
 
 private:
     string name;
-    int numEmployees;
+    int numEmployees = 0;
     Employee* employees[];
 
 };

@@ -10,8 +10,7 @@ int main(){
     d1.addEmployee(e1);
     d1.addEmployee(e2);
     d1.addEmployee(e3);
-    
-    d1.displayEmployees();
 
-    return 0;
+    d1.displayEmployees();
+    return 0;   // stack smashing detected, GG tf is stack smashing? error occurs at the end, past ln15..?
 }
