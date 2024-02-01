@@ -9,7 +9,7 @@ It declares a integer pointer variable called ptr and assigns the memory address
 	cout << ptr << endl;  prints 6
 	
 Дава адрес на референция за стойноста на var
-Real life example:..
+Real life example: someones address(pointer) is the house with the big red door(reference). 
 
 
 
@@ -31,7 +31,9 @@ while(leaving the house) {}
 
 do while усигорява че кода ще тича поне веднъш.
 
-real life example: 
+real life example: do clean while (dirty)
+while (dirty) clean   
+the first example makes cleaning easier since we clean even if its not dirty because once it gets dirty, the cleaning is tougher. bad example, I am overthinking this.
 
 3 Code Analysis:
 Given a snippet of C++ code containing a for loop, explain what the loop does, including how many times it iterates and why.
