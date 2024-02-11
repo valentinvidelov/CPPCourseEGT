@@ -15,12 +15,17 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 			if (renderer != 0) //renderer init success
 			{
 				std::cout << "renderer creation success\n";
-				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+				SDL_SetRenderDrawColor(renderer, 0xAA, 0xAA, 0xAA, 0xFF);
 
-				// use the TextureManager to load textures
-				
-				
-				// TextureManager::Instance()->loadTexture("assets/sprite_sheet_mm_tp.png", "sprite_sheet", renderer);
+				SDL_Surface *tempSurface = SDL_LoadBMP("assets/bmp2.bmp");
+
+				imTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+				SDL_FreeSurface(tempSurface); //removes temp surface from memory
+				SDL_QueryTexture(imTexture, NULL, NULL, &sRect.w, &sRect.h);
+
+				sRect.x = sRect.y = dRect.x = dRect.y = 0;
+				sRect.w = dRect.w = 184;
+				sRect.h = dRect.h = 158;
 
 			}
 			else {
@@ -42,26 +47,15 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	return true;
 }
 
-bool Game::im_init()
-{
-	TextureManager::Instance()->loadTexture("assets/bmp2.bmp", "bmp", renderer);
-}
-
 void Game::render() {
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255); // sets the window bg color needs to sit before SDL_RenderClear()
-	SDL_RenderClear(renderer);
-	int ww, wh;
-    
-	SDL_GetWindowSize(window, &ww, &wh); // assigns the window's width and height to ww and wh
-	int xVelocity = 1;
-    int xPosition = 0;
-    int yPosition = (wh/2)-79;    
-    TextureManager::Instance()->drawTexture("bmp", xPosition, yPosition , 184, 158, renderer, SDL_FLIP_NONE);
-    
+	// SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255); // sets the window bg color needs to sit before SDL_RenderClear()
+	SDL_RenderClear(renderer);  // clears renderer for new image
+
+
     // TextureManager::Instance()->drawTexture("bmp", 0, (wh/2)-79 , 184, 158, renderer, SDL_FLIP_NONE);
-
-	dRectIM = {xPosition, yPosition, 184, 158};
-
+	SDL_RenderCopy(renderer, imTexture, &sRect, &dRect);
+	
+	SDL_RenderPresent(renderer); // displays renderer
     // SDL_Rect fillRect = {ww / 4, wh / 4, ww / 2, wh / 2};
 	// SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
 	// SDL_RenderFillRect(renderer, &fillRect);
@@ -105,10 +99,11 @@ void Game::handleEvents() {
 
                 if(event.key.keysym.sym == SDLK_SPACE){
                     std::cout << "spacebar detected\n";
-                    for (; xPosition <= (ww - 184); xPosition+=xVelocity){
-                        TextureManager::Instance()->drawTexture("bmp", xPosition, yPosition , 184, 158, renderer, SDL_FLIP_NONE);
-        // SDL_Delay(200);
-                    }
+        //             for (xPosition = 0; xPosition <= (ww - 184); xPosition+=xVelocity){
+        //                dRect.x += xVelocity;
+		// 			//    SDL_Delay(200);
+        // // SDL_Delay(200);
+        //             }
                 }
                 break;}
 
@@ -125,7 +120,30 @@ void Game::update() {
 	//std::cout << "SDL_TICKS / 100     :" << int(SDL_GetTicks() / 100) << "\n";
 	//std::cout << "SDL_TICKS / 100 % 10:" << int(((SDL_GetTicks() / 100) % 10)) << "\n\n";
 	
-
+	int ww, wh;
+    SDL_GetWindowSize(window, &ww, &wh); 
+	
+	dRect.y = (wh - dRect.h)/2;
+	// for (int xPosition = 0; xPosition <= (ww - 184); xPosition++){
+	
+	
+	dRect.x += xVelocity;
+	if (dRect.x + dRect.w>= ww){
+		step+=0.5;
+		// BONUS speeding up once it hits edges
+		xVelocity *= -step;
+		
+	}
+	if (dRect.x <=0 ){
+		step+=0.5;
+		xVelocity *= -step;
+		
+	}
+		// SDL_Delay(200);
+		// std::cout << xPosition << std::endl;
+	//    SDL_Delay(200);
+// SDL_Delay(200);
+	// }
 	int numberOfFramesInSpriteSheet = 10;
 	int animationSpeed = 100; // lower is faster, min = 1
 	currentFrame = int(((SDL_GetTicks() / animationSpeed) % numberOfFramesInSpriteSheet));

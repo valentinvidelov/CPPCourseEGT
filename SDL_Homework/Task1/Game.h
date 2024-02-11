@@ -2,8 +2,7 @@
 #pragma once
 
 #include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
-#include "TextureManager.h"
+
 
 
 class Game {
@@ -22,6 +21,8 @@ private:
 	SDL_Renderer* renderer = NULL;
 	bool running;
 	int currentFrame;
-	SDL_Rect dRectIM;
+	double step = 1; // for speeding up
+	int xVelocity = 1;
+	SDL_Rect sRect, dRect;
 	SDL_Texture *imTexture;
 };
