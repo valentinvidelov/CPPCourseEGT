@@ -67,8 +67,8 @@ void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0xFF, 0xFF);
 	Shapes::drawCircle(renderer, ww / 2, wh / 2, wh / 2 - 5);
 
-    SDL_RenderDrawLine(renderer, ww/2, 0, ww/2, wh);
-    SDL_RenderDrawLine(renderer, 0, wh/2, ww, wh/2);
+    // SDL_RenderDrawLine(renderer, ww/2, 0, ww/2, wh); //vertical line
+    SDL_RenderDrawLine(renderer, 0, wh/2, ww, wh/2); //horizontal line
 
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderDrawPoint(renderer, ww / 2, wh / 2);

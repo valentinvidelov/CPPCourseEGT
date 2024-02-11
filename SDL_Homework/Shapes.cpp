@@ -44,24 +44,74 @@ void Shapes::drawPentagon(SDL_Renderer *renderer, int centerX, int centerY, int 
     //sin(108) = y / sideLength  // y = sin(108) * sideLength
     //hmm maybe its 72 instead of 108
 
-    double initialX = centerX - sideLength/2;
+    double initialX = centerX - sideLength/2; //needs fixing to center
     double initialY = centerY + sideLength/2;
-    SDL_RenderDrawLine(renderer, initialX, initialY, initialX + sideLength, 
-                        initialY);
-    SDL_RenderDrawLine(renderer, initialX + sideLength, initialY, 
-                        initialX + sideLength+ sideLength*cos(108),
-                        initialY - sideLength*sin(108));
-    SDL_RenderDrawLine(renderer, initialX + sideLength+ sideLength*cos(108),
-                        initialY - sideLength*sin(108),
-                        centerX,
-                        initialY - 2* sideLength*sin(108));
-    SDL_RenderDrawLine(renderer, centerX,
-                        initialY - sideLength*sin(108) - sideLength*sin(108),
-                        initialX - sideLength*cos(108),
-                        initialY - sideLength*sin(108));    
-    SDL_RenderDrawLine(renderer, initialX - sideLength*cos(108),
-                        initialY - sideLength*sin(108),
-                        initialX, initialY);    
+
+//pentagon 2,  centered vertically, but an irregular pentagon..
+
+    SDL_RenderDrawLine(renderer, centerX, 
+                        centerY-sideLength*sin(108),
+                        centerX-sideLength*sin(108),
+                        centerY-sideLength*cos(108) 
+                        );
+    SDL_RenderDrawLine(renderer, centerX, 
+                        centerY-sideLength*sin(108),
+                        centerX+sideLength*sin(108),
+                        centerY-sideLength*cos(108) 
+                        );
+
+    SDL_RenderDrawLine(renderer, centerX-sideLength*sin(108),
+                        centerY-sideLength*cos(108),
+                        centerX-sideLength/2,
+                        centerY+sideLength*sin(108) 
+                        );
+    SDL_RenderDrawLine(renderer, centerX+sideLength*sin(108),
+                        centerY-sideLength*cos(108),
+                        centerX+sideLength/2,
+                        centerY+sideLength*sin(108) 
+                        );
+    SDL_RenderDrawLine(renderer, 
+                        centerX+sideLength/2,
+                        centerY+sideLength*sin(108),
+                        centerX-sideLength/2,
+                        centerY+sideLength*sin(108)
+                        );
+    
+    //points discovery
+    // SDL_RenderDrawLine(renderer, centerX, centerY, 
+    //                     centerX, 
+    //                     centerY-sideLength*sin(108));
+    // SDL_RenderDrawLine(renderer, centerX, centerY, 
+    //                     centerX-sideLength*sin(108),
+    //                     centerY-sideLength*cos(108));
+    // SDL_RenderDrawLine(renderer, centerX, centerY, 
+    //                     centerX+sideLength*sin(108),
+    //                     centerY-sideLength*cos(108));
+
+    // SDL_RenderDrawLine(renderer, centerX, centerY,  //dont use these last two, others look fineish
+    //                     centerX-sideLength*cos(198),
+    //                     centerY+sideLength*sin(198));
+    // SDL_RenderDrawLine(renderer, centerX, centerY, 
+    //                     centerX+sideLength*cos(198),
+    //                     centerY+sideLength*sin(198));
+
+//pentagon 1, not centered vertically
+    // SDL_RenderDrawLine(renderer, initialX, initialY, initialX + sideLength, 
+    //                     initialY);
+    // SDL_RenderDrawLine(renderer, initialX + sideLength, initialY, 
+    //                     initialX + sideLength+ sideLength*cos(108),
+    //                     initialY - sideLength*sin(108));
+    // SDL_RenderDrawLine(renderer, initialX + sideLength+ sideLength*cos(108),
+    //                     initialY - sideLength*sin(108),
+    //                     centerX,
+    //                     initialY - 2* sideLength*sin(108));
+    // SDL_RenderDrawLine(renderer, centerX,
+    //                     initialY - sideLength*sin(108) - sideLength*sin(108),
+    //                     initialX - sideLength*cos(108),
+    //                     initialY - sideLength*sin(108));    
+    // SDL_RenderDrawLine(renderer, initialX - sideLength*cos(108),
+    //                     initialY - sideLength*sin(108),
+    //                     initialX, initialY);    
 }
 
 void Shapes::drawHexagon(SDL_Renderer *renderer, int centerX, int centerY, int sideLength)
