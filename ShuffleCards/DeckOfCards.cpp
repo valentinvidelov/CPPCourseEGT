@@ -5,7 +5,7 @@ void DeckOfCards::createDeck()
     vector<PlayingCard> deck;
     for (int i = 0; i < 4; i++){
 
-        for (int j = 0; j<13; j++){
+        for (int j = 0; j<13; j++){              
             PlayingCard card(suits[i], values[j]);
             deck.push_back(card);
         }

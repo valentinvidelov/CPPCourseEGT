@@ -77,6 +77,11 @@ void Shapes::drawPentagon(SDL_Renderer *renderer, int centerX, int centerY, int 
                         centerY+sideLength*sin(108)
                         );
     
+
+
+
+    // SDL_GetWindowSurface();
+    // SDL_CreateTextureFromSurface();   //combine these two.. see if we can take/ set screenshots
     //points discovery
     // SDL_RenderDrawLine(renderer, centerX, centerY, 
     //                     centerX, 
@@ -116,8 +121,10 @@ void Shapes::drawPentagon(SDL_Renderer *renderer, int centerX, int centerY, int 
 
 void Shapes::drawHexagon(SDL_Renderer *renderer, int centerX, int centerY, int sideLength)
 {
+    double initialX = sin(60)/sideLength;
+
 }
 
-void Shapes::drawEllipse(SDL_Renderer *renderer, int centerX, int centerY, int radius, double eccentricity)
+void Shapes::drawEllipse(SDL_Renderer *renderer, int centerX, int centerY, double eccentricity)
 {
 }
