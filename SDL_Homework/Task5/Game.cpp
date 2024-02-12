@@ -22,15 +22,20 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
                 SDL_FreeSurface(tempSurface);
 
-                SDL_QueryTexture(q1Texture, NULL, NULL, &q1Rect.w, &q1Rect.h);
                 int ww, wh;
-	            SDL_GetWindowSize(window, &ww, &wh);   // set window width and height vars
+	            SDL_GetWindowSize(window, &ww, &wh); 
 
-                q1Rect.x = q1Rect.y = dRect.x = dRect.y = 0;
-                q1Rect.x = dRect.x = ww/2;
-                q1Rect.y = dRect.y = 0;
-				sRect.w = dRect.w = ww/2;
-				sRect.h = dRect.h = wh/2;
+                // SDL_QueryTexture(q1Texture, NULL, NULL, &q1Rect.w, &q1Rect.h);
+
+                // q1Rect.x = dRect.x = ww/2;
+                // q1Rect.y = dRect.y = 0;
+				// dRect.w = ww/2;
+			    // dRect.h = wh/2;
+                SDL_QueryTexture(q1Texture, NULL, NULL, &sRect.w, &sRect.h);
+                sRect.x = q1Rect.x = ww/2;
+                sRect.y = q1Rect.y = 0;
+                q1Rect.w = ww/2;
+                q1Rect.h = wh/2;
 			}
 			else {
 				std::cout << "renderer init failed\n";
@@ -58,7 +63,8 @@ void Game::render() {
     int ww, wh;
 	SDL_GetWindowSize(window, &ww, &wh);   // set window width and height vars
    
-    SDL_RenderCopy(renderer, q1Texture, &q1Rect, &dRect);
+    // SDL_RenderCopy(renderer, q1Texture, &q1Rect, &dRect);
+    SDL_RenderCopy(renderer, q1Texture, &sRect, &q1Rect);
  
     SDL_SetRenderDrawColor(renderer, 0, 204, 204, 255); //split screen into 4 quadrants as per task 5, use this blue
     SDL_RenderDrawLine(renderer, ww/2, 0, ww/2, wh);
