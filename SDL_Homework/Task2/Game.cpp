@@ -76,6 +76,9 @@ void Game::render() {
     SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0xFF, 0xFF);
     Shapes::drawPentagon(renderer, ww / 2, wh / 2, 100);
 
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	Shapes::drawHexagon(renderer, ww/2, wh/2, 300);
+
 	SDL_RenderPresent(renderer);
 }
 

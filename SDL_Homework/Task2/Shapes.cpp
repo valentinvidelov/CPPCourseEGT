@@ -121,8 +121,18 @@ void Shapes::drawPentagon(SDL_Renderer *renderer, int centerX, int centerY, int 
 
 void Shapes::drawHexagon(SDL_Renderer *renderer, int centerX, int centerY, int sideLength)
 {
-    double initialX = sin(60)/sideLength;
+    double initialX = centerX+ cos(60)*sideLength/2;
+    double initialY = centerY - sideLength * sin(60)*2;
 
+    SDL_RenderDrawLine(renderer, initialX, initialY, initialX+sideLength, initialY);
+    SDL_RenderDrawLine(renderer, initialX+sideLength, initialY, centerX+sideLength, centerY);
+    SDL_RenderDrawLine(renderer, centerX+sideLength, centerY, initialX+sideLength, centerY+sideLength*sin(60)*2);
+    SDL_RenderDrawLine(renderer, initialX+sideLength, centerY+sideLength*sin(60)*2, 
+                                initialX, centerY+sideLength*sin(60)*2);
+    SDL_RenderDrawLine(renderer, initialX, centerY+sideLength*sin(60)*2, 
+                                centerX-sideLength, centerY);
+    SDL_RenderDrawLine(renderer, centerX-sideLength, centerY, 
+                                initialX, initialY);
 }
 
 void Shapes::drawEllipse(SDL_Renderer *renderer, int centerX, int centerY, double eccentricity)
