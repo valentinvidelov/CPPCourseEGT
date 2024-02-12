@@ -17,7 +17,20 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 				std::cout << "renderer creation success\n";
 				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
+                SDL_Surface *tempSurface = IMG_Load("assets/1.jpg");
+                q1Texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
 
+                SDL_FreeSurface(tempSurface);
+
+                SDL_QueryTexture(q1Texture, NULL, NULL, &q1Rect.w, &q1Rect.h);
+                int ww, wh;
+	            SDL_GetWindowSize(window, &ww, &wh);   // set window width and height vars
+
+                q1Rect.x = q1Rect.y = dRect.x = dRect.y = 0;
+                q1Rect.x = dRect.x = ww/2;
+                q1Rect.y = dRect.y = 0;
+				sRect.w = dRect.w = ww/2;
+				sRect.h = dRect.h = wh/2;
 			}
 			else {
 				std::cout << "renderer init failed\n";
@@ -44,12 +57,14 @@ void Game::render() {
    //renders fonts
     int ww, wh;
 	SDL_GetWindowSize(window, &ww, &wh);   // set window width and height vars
-    
+   
+    SDL_RenderCopy(renderer, q1Texture, &q1Rect, &dRect);
+ 
     SDL_SetRenderDrawColor(renderer, 0, 204, 204, 255); //split screen into 4 quadrants as per task 5, use this blue
     SDL_RenderDrawLine(renderer, ww/2, 0, ww/2, wh);
     SDL_RenderDrawLine(renderer, 0, wh/2, ww, wh/2);
 
-
+   
    
 
 	SDL_RenderPresent(renderer);

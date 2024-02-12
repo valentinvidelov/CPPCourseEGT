@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
 
 class Game {
 public:
@@ -22,7 +23,7 @@ private:
 	int msdx, msdy;
 
 	SDL_Rect sRect, dRect;
-	SDL_Texture *imTexture;
+	SDL_Texture *q1Texture, *q2Texture, *q3Texture, *q4Texture;
     SDL_Texture *q1, *q2, *q3, *q4;
     SDL_Texture *clickableTexture;
     SDL_Rect q1Rect, q2Rect, q3Rect, q4Rect;
