@@ -12,7 +12,8 @@ bool TextureManager::loadTexture(const char* fileName, std::string id, SDL_Rende
 
 	if (tex != 0) { // if texture creation successful, save the texture in the map
 		textureMap[id] = tex; // id is a unique identifier/name for each texture, the texture can be accessed later using this id
-		return true;
+		display[id] = 0; //starts off not visible
+        return true;
 	}
 
 	return false; // something went wrong
@@ -25,15 +26,18 @@ void TextureManager::drawTexture(std::string id,
 	SDL_Renderer* ren,
 	SDL_RendererFlip flip) {
 
-	SDL_Rect srcRect;
-	SDL_Rect destRect;
-	srcRect.x = srcRect.y = 0;
-	srcRect.w = destRect.w = width;
-	srcRect.h = destRect.h = height;
-	destRect.x = x;
-	destRect.y = y;
+	if (display[id]){
 
-	SDL_RenderCopyEx(ren, textureMap[id], &srcRect, &destRect, 0, 0, flip);
+        SDL_Rect srcRect;
+        SDL_Rect destRect;
+        srcRect.x = srcRect.y = 0;
+        srcRect.w = destRect.w = width;
+        srcRect.h = destRect.h = height;
+        destRect.x = x;
+        destRect.y = y;
+
+        SDL_RenderCopyEx(ren, textureMap[id], &srcRect, &destRect, 0, 0, flip);
+    }
 }
 
 void TextureManager::drawOneFrameFromTexture (std::string id, // id of texture to draw
@@ -54,6 +58,11 @@ SDL_RendererFlip flip) { // flag to flip texture
 
 	SDL_RenderCopyEx(ren, textureMap[id], &srcRect, &destRect, 0, 0, flip);
 
+}
+
+void TextureManager::toggleVisibility(std::string id)
+{
+    display[id] = !display[id];
 }
 
 TextureManager* TextureManager::instance = 0;

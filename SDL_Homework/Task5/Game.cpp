@@ -67,6 +67,7 @@ void Game::render() {
     int ww, wh;
 	SDL_GetWindowSize(window, &ww, &wh);   // set window width and height vars
     
+    //draw these on click
     TextureManager::Instance()->drawTexture("q1", ww/2, 0, ww/2, wh/2, renderer, SDL_FLIP_NONE); //drawTexture, x, y, width, height
     TextureManager::Instance()->drawTexture("q2", 0, 0, ww/2, wh/2, renderer, SDL_FLIP_NONE);
     TextureManager::Instance()->drawTexture("q3", 0, wh/2, ww/2, wh/2, renderer, SDL_FLIP_NONE);
@@ -78,7 +79,7 @@ void Game::render() {
     SDL_RenderDrawLine(renderer, ww/2, 0, ww/2, wh);
     SDL_RenderDrawLine(renderer, 0, wh/2, ww, wh/2);
 
-   
+    
    
 
 	SDL_RenderPresent(renderer);
@@ -124,11 +125,14 @@ void Game::handleEvents() {
         case SDL_KEYDOWN:{
             if (event.key.keysym.sym == SDLK_RIGHT){
                 std::cout << "right arrow key down detected\n";
-                
+                TextureManager::Instance()->toggleVisibility("q1");
+                TextureManager::Instance()->toggleVisibility("q4");
+
             }
             if (event.key.keysym.sym == SDLK_LEFT){
                 std::cout << "left arrow key down detected\n";
-                
+                TextureManager::Instance()->toggleVisibility("q2");
+                TextureManager::Instance()->toggleVisibility("q3");
             }          
             if (event.key.keysym.sym == SDLK_UP){
                 std::cout << "up arrow key down detected\n";
