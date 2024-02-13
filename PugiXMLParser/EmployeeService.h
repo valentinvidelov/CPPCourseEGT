@@ -8,8 +8,8 @@ public:
     static std::vector<Employee*> getEmployeesList();
 
 private:
-static std::vector<Employee*> employeeList;
-static pugi::xml_document doc;
+    static std::vector<Employee*> employeeList;
+    static pugi::xml_document doc;
 
 
 };

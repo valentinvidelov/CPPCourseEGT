@@ -11,7 +11,7 @@ void EmployeeService::parseEmployeesData()
     //read Employee node -> parseEmployee ; returns employee
     // add eployee object to vector
     
-    if (!doc.load_file("Sample.xml")) return;
+    if (!doc.load_file("Employees.xml")) return;
     pugi::xml_node employees = doc.child("EmployeesData").child("Employees");
 
     // for (pugi::xml_node employee = employees.child("Employee"); employee;
@@ -27,5 +27,6 @@ void EmployeeService::parseEmployeesData()
 
 std::vector<Employee *> EmployeeService::getEmployeesList()
 {
-    return std::vector<Employee *>();
+    
+    return employeeList;
 }

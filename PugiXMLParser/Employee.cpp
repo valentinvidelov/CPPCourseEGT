@@ -1,6 +1,6 @@
 #include "Employee.h"
 
-Employee::Employee(std::string name, std::string type, int age, Workstation *w):workstation(w)
+Employee::Employee(std::string name, std::string type, int age, Workstation w): workstation(w)
 {
     this->name = name;
     this->type = type;
@@ -22,5 +22,5 @@ Employee *Employee::parseEmployee(pugi::xml_node employeeNode)
 
     Workstation *wPtr = Workstation::parseWorkstation(employeeNode.child("Workstation"));
 
-    return new Employee(name, type, age, wPtr);
+    return new Employee(name, type, age, *wPtr);
 }
