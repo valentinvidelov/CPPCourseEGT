@@ -12,16 +12,18 @@ int main();
 
 bool init();
 void handleEvents();
+void render();
 void close();
 void drawRectangle(int width, int height, int thickness);
-SDL_Rect drawInnerRectangle(int width, int height);
-SDL_Rect drawOuterRectangle(int width, int height, int thickness);
+const SDL_Rect* drawInnerRectangle(int width, int height);
+const SDL_Rect* drawOuterRectangle(int width, int height, int thickness);
 bool isRunning;
 
 SDL_Window* gWindow = NULL;
 SDL_Surface* gScreenSurface = NULL;
 SDL_Surface* gHelloWorld = NULL;
 SDL_Rect rect1, rect2;
+SDL_Renderer* renderer = NULL;
 
 int main(){
     int ww, wh, rw, rh, thickness;
@@ -31,7 +33,10 @@ int main(){
     init();
     SDL_GetWindowSize(gWindow, &ww, &wh);
     while (isRunning){
+        
         handleEvents();
+        render();
+        SDL_UpdateWindowSurface(gWindow);
         
     }
 
@@ -54,18 +59,40 @@ bool init()
         if (gWindow == NULL){
             cout << "Window could not be created!" << endl;
             success = false;
+            renderer = SDL_CreateRenderer(gWindow, -1, 0);
         } else {
+            if (renderer != 0) //renderer init success
+            {
+            
             //get window surface
+            SDL_SetRenderDrawColor(renderer, 0xAA, 0xAA, 0xAA, 0xFF);
             gScreenSurface = SDL_GetWindowSurface( gWindow );
-        }
+            } else {
+				std::cout << "renderer init failed\n";
+				return false;
+			}
+
+            }
     }
     return success;
 }
+void render(){
+    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    
+    
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    drawRectangle(200, 100, 10);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_RenderDrawLine(renderer, 3 , 5 , 200, 5);
+    SDL_RenderPresent(renderer);
+    
+}
+
 void handleEvents()
 {
 
     SDL_Event event;
-
     if (SDL_PollEvent(&event))
     {
 		switch (event.type) {
@@ -77,41 +104,39 @@ void handleEvents()
 
 void drawRectangle(int width, int height, int thickness)
 {
-    SDL_Rect *oRect, *iRect;
-    iRect = &drawInnerRectangle(width, height);
-    oRect = &drawOuterRectangle(width, height, thickness);
-    SDL_RenderDrawRect(renderer, iRect );
+    const SDL_Rect *oRect, *iRect;
+    iRect = drawInnerRectangle(width, height);
+    oRect = drawOuterRectangle(width, height, thickness);
     SDL_RenderDrawRect(renderer, oRect);
+    SDL_RenderDrawRect(renderer, iRect );
+    
 }
-SDL_Rect drawOuterRectangle(int width, int height, int thickness) 
+const SDL_Rect* drawOuterRectangle(int width, int height, int thickness) 
 {
     int ww, wh;
     SDL_GetWindowSize(gWindow, &ww, &wh);
-    SDL_Rect oRect;
+    SDL_Rect* oRect;
 
-    oRect.x = ww/2 - thickness/2;
-    oRect.y = wh/2 - thickness/2;
-    oRect.w = width + thickness;
-    oRect.h = height + thickness;
+    oRect->x = ww/2 - thickness/2;
+    oRect->y = wh/2 - thickness/2;
+    oRect->w = width + thickness;
+    oRect->h = height + thickness;
 
     return oRect;
 }
 
-SDL_Rect drawInnerRectangle(int width, int height)
+const SDL_Rect* drawInnerRectangle(int width, int height)
 {
     int ww, wh;
     SDL_GetWindowSize(gWindow, &ww, &wh);
-    SDL_Rect iRect;
-    
+    SDL_Rect *iRect;
+  
     //inner rect
-    iRect.x = ww/2;  
-    iRect.y = wh/2;
-    iRect.w = width;
-    iRect.h = height;
+    iRect->x = ww/2;  
+    iRect->y = wh/2;
+    iRect->w = width;
+    iRect->h = height;
 
-    //outer rect
-    
-    
     return iRect;
 
 }
@@ -121,7 +146,11 @@ void close()
     
     SDL_FreeSurface(gHelloWorld); // frees surface / deallocates
     gHelloWorld = NULL;
+    
     SDL_DestroyWindow( gWindow );  //destroys window
     gWindow = NULL;  //GET in habit of always NULLing pointers. you avoid undefined behavior
+    
+    SDL_DestroyRenderer(renderer);
+    renderer = NULL;
     SDL_Quit();
 }
