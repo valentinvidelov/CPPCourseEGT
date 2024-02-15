@@ -51,6 +51,12 @@ void Game::render() {
 	SDL_GetWindowSize(window, &ww, &wh); // assigns the window's width and height to ww and wh
 
 	// animates the sprite sheet with the help of the update() function
+	// if ((currentFrame == 4) && (currentRow == 1)){
+	// 	currentRow++;
+	// } else if ((currentFrame == 4) && (currentRow == 2)){
+	// 	currentRow--;
+	// }
+	currentRow = 1;
 	TextureManager::Instance()->drawOneFrameFromTexture("sprite_sheet", ww/2, wh/2, 60, 70, currentRow, currentFrame, renderer);
 	std::cout << "frame: "<<currentFrame << std::endl;
 	std::cout << "row: " << currentRow << std::endl;
@@ -82,7 +88,7 @@ void Game::update() {
 	int numberOfRows = 2;
 	int animationSpeed = 100; // lower is faster, min = 1
 	currentFrame = int(((SDL_GetTicks() / animationSpeed) % numberOfFramesInSpriteSheet));
-	currentRow = int(((SDL_GetTicks() / animationSpeed) % numberOfRows))+1;
+	// currentRow = int(((SDL_GetTicks() / animationSpeed) % numberOfRows))+1;
 }
 
 void Game::clean() {

@@ -83,11 +83,15 @@ void Game::handleEvents() {
     int xVelocity = 1;
     int xPosition = 0;
     int yPosition = (wh/2)-79;
-
+	int msx, msy;
     SDL_Event event;
 	if (SDL_PollEvent(&event)) {
 		switch (event.type) {
 			case SDL_QUIT: running = false; break;
+			case SDL_MOUSEBUTTONUP: //bonus center image at mouseclick
+				SDL_GetMouseState(&msx, &msy);
+				dRect.x = msx - dRect.w/2;
+				dRect.y = msy - dRect.h/2;
             case SDL_KEYDOWN:{
 
 				if (event.key.keysym.sym == SDLK_RIGHT){
