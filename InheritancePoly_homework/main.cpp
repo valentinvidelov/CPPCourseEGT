@@ -14,19 +14,19 @@ void Door::open()   //can be declared here as well
     cout << "Opening Door" << endl;
 }
 class CarDoor: public Door{
-    virtual void open(){
+    void open() override{
     cout << "Opening car door" << endl;
 };
-    virtual void close(){
+    void close() override{
     cout << "Closing car door." << endl;
     };
 };
 
 class GarageDoor: public Door{
-    virtual void open(){
+    void open() override{
     cout << "Opening garage door" << endl;
 };
-    virtual void close(){
+    void close() override{
         cout << "Closing garage door." << endl;
     };
 };

@@ -20,7 +20,7 @@ using namespace std;
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 "-lSDL2",
-                "-lSDL2_ttf",
+                "-lSDL2_image",
  */
 
 const int FPS = 30; //60
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
 		game->update();
         
 		game->render();
-        limitFPS(startingTick);
+        // limitFPS(startingTick);
 	}
 	game->clean();
 	return 0;

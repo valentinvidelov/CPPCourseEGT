@@ -3,6 +3,8 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "TextureManager.h"
+#include <string>
+using namespace std;
 
 class Game {
 public:
@@ -15,6 +17,7 @@ public:
 	void clean();
 	bool isRunning();
     bool isClickableTextureClicked(SDL_Texture *t, SDL_Rect *r, int xDown, int yDown, int xUp, int yUp);
+	void quadrantClicked(int xDown, int yDown, int xUp, int yUp);
 
 private:
 	SDL_Window* window = NULL;

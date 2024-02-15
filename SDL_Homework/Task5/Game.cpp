@@ -94,10 +94,10 @@ void Game::handleEvents() {
 		switch (event.type) {
 		case SDL_QUIT: running = false; break;
         case SDL_MOUSEBUTTONDOWN:{
-            std::cout << "Mouse button down detected \n";
+            // std::cout << "Mouse button down detected \n";
             int msx, msy;
             if (event.button.button == SDL_BUTTON_LEFT){
-                std::cout << "left button down\n";
+                // std::cout << "left button down\n";
                 // SDL_GetMouseState(&msdx, &msdy);
                 SDL_GetMouseState(&msx, &msy);
                 msdx = msx;
@@ -108,18 +108,19 @@ void Game::handleEvents() {
         }
         case SDL_MOUSEBUTTONUP:{
             int msx, msy;
-            std::cout << "Mouse button released\n"; 
+            // std::cout << "Mouse button released\n"; 
             if (event.button.button == SDL_BUTTON_LEFT){
                 // std::cout << "left button down\n";
                 SDL_GetMouseState(&msx, &msy);
-                std::cout << msx << ", " << msy << std::endl;
-                std::cout << (isClickableTextureClicked(clickableTexture, &sRect,
-                                                         msdx, msdy, msx, msy) ? "CLICKED\n" : "not clicked\n");
+                // std::cout << msx << ", " << msy << std::endl;
+                // std::cout << (isClickableTextureClicked(clickableTexture, &sRect,
+                //                                          msdx, msdy, msx, msy) ? "CLICKED\n" : "not clicked\n");
+                quadrantClicked(msdx, msdy, msx, msy);  //on release, pass the click and release vars to func
             }
             if (event.button.button = SDL_BUTTON_RIGHT){
-                std::cout << "right button up\n";
+                // std::cout << "right button up\n";
                 SDL_GetMouseState(&msx, &msy);
-                std::cout << msx << ", " << msy << std::endl;
+                // std::cout << msx << ", " << msy << std::endl;
             }
         }
         case SDL_KEYDOWN:{
@@ -191,6 +192,31 @@ bool Game::isClickableTextureClicked(SDL_Texture *t, SDL_Rect *r, int xDown, int
         return true;
     }
     return false;
+}
+
+// check which quadrant the mouse is clicked and released, return 
+void Game::quadrantClicked(int xDown, int yDown, int xUp, int yUp)
+{
+    int ww, wh;
+    SDL_GetWindowSize(window, &ww, &wh);
+    if ((xDown > ww/2 && yDown < wh/2) && (xUp > ww/2 && yUp < wh/2)){
+        TextureManager::Instance()->toggleVisibility("q1");
+        cout << "q1" << endl;
+    }
+    if ((xDown < ww/2 && yDown < wh/2) && (xUp < ww/2 && yUp < wh/2)){
+        TextureManager::Instance()->toggleVisibility("q2");
+        cout << "q2" << endl;
+    }
+    if ((xDown < ww/2 && yDown > wh/2) && (xUp < ww/2 && yUp > wh/2)){
+        TextureManager::Instance()->toggleVisibility("q3");
+        cout << "q3" << endl;
+    }
+    if ((xDown > ww/2 && yDown > wh/2) && (xUp > ww/2 && yUp > wh/2)){
+        TextureManager::Instance()->toggleVisibility("q4");
+        cout << "q4" << endl;
+    }
+    
+    
 }
 
 Game::Game() {
