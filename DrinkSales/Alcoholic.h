@@ -10,7 +10,7 @@ public:
     void setAlcTax(double);
     double getVolAlcohol();
     double getAlcTax();
-    virtual void print();
+    void print() override;
     double calcPrice();
 
 private:

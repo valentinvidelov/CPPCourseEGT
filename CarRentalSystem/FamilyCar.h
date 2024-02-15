@@ -6,10 +6,10 @@
 class FamilyCar:public Car{
 public:
     FamilyCar(string, string, string, string, string, int);
-    virtual double calcTax(int);
+    double calcTax(int);
     void setDistanceTravelled(int); 
     int getDistanceTravelled();
-    virtual void print();
+    void print() override;
 
 private:
     int distanceTravelled;

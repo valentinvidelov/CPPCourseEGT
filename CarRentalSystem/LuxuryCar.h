@@ -11,7 +11,7 @@ public:
     void setExtras(string);
     int getDistanceTravelled();
     int getExtrasFee(string);
-    virtual void print();
+    void print() override;
     string getExtras();
 
 private:

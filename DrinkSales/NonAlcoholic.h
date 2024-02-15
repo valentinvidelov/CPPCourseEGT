@@ -7,7 +7,7 @@ class NonAlcoholic:public Drinks{
 public:
     NonAlcoholic(string, string, string, double, double, double, double);
     double calcPrice();
-    virtual void print();
+    void print() override;
     void setLitrVol(double);
     void setCityTax(double);
     double getLitrVol();
