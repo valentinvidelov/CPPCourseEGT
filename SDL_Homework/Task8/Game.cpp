@@ -52,7 +52,8 @@ void Game::render() {
 
 	// animates the sprite sheet with the help of the update() function
 	TextureManager::Instance()->drawOneFrameFromTexture("sprite_sheet", ww/2, wh/2, 60, 70, currentRow, currentFrame, renderer);
-	std::cout << currentRow << std::endl;
+	std::cout << "frame: "<<currentFrame << std::endl;
+	std::cout << "row: " << currentRow << std::endl;
 	// NOTICE: the textures rendered later overlap the previosly rendered textures
 
 	SDL_RenderPresent(renderer);
