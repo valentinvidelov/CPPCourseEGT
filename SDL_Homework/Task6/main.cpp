@@ -36,7 +36,7 @@ int main(){
         
         handleEvents();
         render();
-        SDL_UpdateWindowSurface(gWindow);
+        // SDL_UpdateWindowSurface(gWindow);
         
     }
 
@@ -59,12 +59,13 @@ bool init()
         if (gWindow == NULL){
             cout << "Window could not be created!" << endl;
             success = false;
-            renderer = SDL_CreateRenderer(gWindow, -1, 0);
+            
         } else {
+            renderer = SDL_CreateRenderer(gWindow, -1, 0);
             if (renderer != 0) //renderer init success
             {
             
-            //get window surface
+           
             SDL_SetRenderDrawColor(renderer, 0xAA, 0xAA, 0xAA, 0xFF);
             gScreenSurface = SDL_GetWindowSurface( gWindow );
             } else {
@@ -78,13 +79,15 @@ bool init()
 }
 void render(){
     SDL_RenderClear(renderer);
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    
     
     
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    drawRectangle(200, 100, 10);
+    drawRectangle(200, 100, 50);
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 255,255, 0, 255);
     SDL_RenderDrawLine(renderer, 3 , 5 , 200, 5);
+    SDL_SetRenderDrawColor(renderer, 0,0, 0, 255);
     SDL_RenderPresent(renderer);
     
 }
@@ -104,11 +107,14 @@ void handleEvents()
 
 void drawRectangle(int width, int height, int thickness)
 {
+    // SDL_Color col = {255,255,0,255};
+    // Uint32 col= {};
     const SDL_Rect *oRect, *iRect;
     iRect = drawInnerRectangle(width, height);
     oRect = drawOuterRectangle(width, height, thickness);
     SDL_RenderDrawRect(renderer, oRect);
     SDL_RenderDrawRect(renderer, iRect );
+    // SDL_FillRect(NULL, iRect, col);
     
 }
 const SDL_Rect* drawOuterRectangle(int width, int height, int thickness) 
@@ -146,11 +152,11 @@ void close()
     
     SDL_FreeSurface(gHelloWorld); // frees surface / deallocates
     gHelloWorld = NULL;
-    
+    SDL_DestroyRenderer(renderer);
+    renderer = NULL;
     SDL_DestroyWindow( gWindow );  //destroys window
     gWindow = NULL;  //GET in habit of always NULLing pointers. you avoid undefined behavior
     
-    SDL_DestroyRenderer(renderer);
-    renderer = NULL;
+ 
     SDL_Quit();
 }
