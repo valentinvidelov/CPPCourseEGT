@@ -8,10 +8,14 @@
 using namespace std;
 
 
+int main();
+
 bool init();
 void handleEvents();
 void close();
-SDL_Rect drawRectangle(int width, int height, int thickness);
+void drawRectangle(int width, int height, int thickness);
+SDL_Rect drawInnerRectangle(int width, int height);
+SDL_Rect drawOuterRectangle(int width, int height, int thickness);
 bool isRunning;
 
 SDL_Window* gWindow = NULL;
@@ -59,8 +63,11 @@ bool init()
 }
 void handleEvents()
 {
+
     SDL_Event event;
-	if (SDL_PollEvent(&event)) {
+
+    if (SDL_PollEvent(&event))
+    {
 		switch (event.type) {
 			case SDL_QUIT: isRunning = false; break;
 			default: break;
@@ -68,26 +75,44 @@ void handleEvents()
 	}
 }
 
-
-
-SDL_Rect drawRectangle(int width, int height, int thickness)
+void drawRectangle(int width, int height, int thickness)
+{
+    SDL_Rect *oRect, *iRect;
+    iRect = &drawInnerRectangle(width, height);
+    oRect = &drawOuterRectangle(width, height, thickness);
+    SDL_RenderDrawRect(renderer, iRect );
+    SDL_RenderDrawRect(renderer, oRect);
+}
+SDL_Rect drawOuterRectangle(int width, int height, int thickness) 
 {
     int ww, wh;
     SDL_GetWindowSize(gWindow, &ww, &wh);
+    SDL_Rect oRect;
 
+    oRect.x = ww/2 - thickness/2;
+    oRect.y = wh/2 - thickness/2;
+    oRect.w = width + thickness;
+    oRect.h = height + thickness;
+
+    return oRect;
+}
+
+SDL_Rect drawInnerRectangle(int width, int height)
+{
+    int ww, wh;
+    SDL_GetWindowSize(gWindow, &ww, &wh);
+    SDL_Rect iRect;
     
     //inner rect
-    rect1.x = ww/2;  
-    rect1.y = wh/2;
-    rect1.w = width;
-    rect1.h = height;
+    iRect.x = ww/2;  
+    iRect.y = wh/2;
+    iRect.w = width;
+    iRect.h = height;
 
     //outer rect
-    rect2.x = ww/2 - thickness;
-    rect2.y = wh/2 - thickness;
-    rect2.w = width + thickness;
-    rect2.h = height + thickness;
     
+    
+    return iRect;
 
 }
 

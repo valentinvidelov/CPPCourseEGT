@@ -6,6 +6,9 @@ using std::endl;
 #include "Date.h" // Date class definition
 #include "Time.h"
 
+//Time.h is of my own task, when adding seconds to t1, it returns days
+// hours minutes and seconds that amount 
+
 int main()
 {
 
