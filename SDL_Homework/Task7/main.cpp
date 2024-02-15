@@ -32,7 +32,7 @@ int main(){
         game->update();
         
         game->render();
-        limitFPS(startingTick);
+        // limitFPS(startingTick);
     }
     
     

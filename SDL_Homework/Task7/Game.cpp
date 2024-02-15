@@ -23,10 +23,16 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 				SDL_FreeSurface(tempSurface); //removes temp surface from memory
 				SDL_QueryTexture(imTexture, NULL, NULL, &sRect.w, &sRect.h);
 
+				int ww, wh;
+				SDL_GetWindowSize(window, &ww, &wh);
+
 				sRect.x = sRect.y = dRect.x = dRect.y = 0;
 				sRect.w = dRect.w = 184;
 				sRect.h = dRect.h = 158;
-
+				dRect.y = (wh - dRect.h)/2;
+	// for (int xPosition = 0; xPosition <= (ww - 184); xPosition++){
+	
+				dRect.x = ww/2;
 			}
 			else {
 				std::cout << "renderer init failed\n";
@@ -50,8 +56,6 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 void Game::render() {
 	// SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 255); // sets the window bg color needs to sit before SDL_RenderClear()
 	SDL_RenderClear(renderer);  // clears renderer for new image
-
-
     // TextureManager::Instance()->drawTexture("bmp", 0, (wh/2)-79 , 184, 158, renderer, SDL_FLIP_NONE);
 	SDL_RenderCopy(renderer, imTexture, &sRect, &dRect);
 	
@@ -64,17 +68,6 @@ void Game::render() {
 	// SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xFF);
 	// SDL_RenderDrawRect(renderer, &outlineRect);
 
-	// SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
-	// SDL_RenderDrawLine(renderer, 0, wh / 2, ww, wh / 2);
-
-	// SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0x00, 0xFF); // renders dashed line
-	// for (int i = 0; i < wh; i += 4) {
-	// 	SDL_RenderDrawPoint(renderer, ww / 2, i);
-	// }
-
-	// SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0xFF, 0xFF);
-
-	
 	// // animates the sprite sheet with the help of the update() function
 	// TextureManager::Instance()->drawOneFrameFromTexture("sprite_sheet", 0, 0, 60, 70, 1, currentFrame, renderer);
 
@@ -97,6 +90,30 @@ void Game::handleEvents() {
 			case SDL_QUIT: running = false; break;
             case SDL_KEYDOWN:{
 
+				if (event.key.keysym.sym == SDLK_RIGHT){
+					dRect.x+=4;
+					if (dRect.x + dRect.w>= ww){
+						dRect.x = ww - dRect.w;
+					}
+				}
+				if (event.key.keysym.sym == SDLK_LEFT){
+					dRect.x-=4;
+					if (dRect.x <=0 ){
+						dRect.x = 0;
+					}
+				}
+				if (event.key.keysym.sym == SDLK_UP){
+					dRect.y-=4;
+					if (dRect.y <= 0){
+						dRect.y = 0;
+					}
+				}
+				if (event.key.keysym.sym == SDLK_DOWN){
+					dRect.y+=4;
+					if (dRect.y + dRect.h >= wh){
+						dRect.y = wh-dRect.h;
+					}
+				}
                 if(event.key.keysym.sym == SDLK_SPACE){
                     std::cout << "spacebar detected\n";
         //             for (xPosition = 0; xPosition <= (ww - 184); xPosition+=xVelocity){
@@ -123,22 +140,19 @@ void Game::update() {
 	int ww, wh;
     SDL_GetWindowSize(window, &ww, &wh); 
 	
-	dRect.y = (wh - dRect.h)/2;
-	// for (int xPosition = 0; xPosition <= (ww - 184); xPosition++){
-	
-	
-	dRect.x += xVelocity;
-	if (dRect.x + dRect.w>= ww){
-		step+=0.5;
-		// BONUS speeding up once it hits edges
-		xVelocity *= -step;
+
+	// dRect.x += xVelocity;
+	// if (dRect.x + dRect.w>= ww){
+	// 	step+=0.5;
+	// 	// BONUS speeding up once it hits edges
+	// 	xVelocity *= -step;
 		
-	}
-	if (dRect.x <=0 ){
-		step+=0.5;
-		xVelocity *= -step;
+	// }
+	// if (dRect.x <=0 ){
+	// 	step+=0.5;
+	// 	xVelocity *= -step;
 		
-	}
+	// }
 		// SDL_Delay(200);
 		// std::cout << xPosition << std::endl;
 	//    SDL_Delay(200);
