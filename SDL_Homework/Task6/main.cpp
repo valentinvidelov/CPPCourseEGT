@@ -11,16 +11,17 @@ using namespace std;
 bool init();
 void handleEvents();
 void close();
-void drawRectangle(int width, int height, int thickness);
+SDL_Rect drawRectangle(int width, int height, int thickness);
 bool isRunning;
 
 SDL_Window* gWindow = NULL;
 SDL_Surface* gScreenSurface = NULL;
 SDL_Surface* gHelloWorld = NULL;
+SDL_Rect rect1, rect2;
 
 int main(){
-    int ww, wh, rw, rh;
-    
+    int ww, wh, rw, rh, thickness;
+    drawRectangle(10,20,5);
     SDL_Rect rectangle= {ww/2, wh/2, rw, rh};
     isRunning = true;
     init();
@@ -67,8 +68,26 @@ void handleEvents()
 	}
 }
 
-void drawRectangle(int width, int height, int thickness)
+
+
+SDL_Rect drawRectangle(int width, int height, int thickness)
 {
+    int ww, wh;
+    SDL_GetWindowSize(gWindow, &ww, &wh);
+
+    
+    //inner rect
+    rect1.x = ww/2;  
+    rect1.y = wh/2;
+    rect1.w = width;
+    rect1.h = height;
+
+    //outer rect
+    rect2.x = ww/2 - thickness;
+    rect2.y = wh/2 - thickness;
+    rect2.w = width + thickness;
+    rect2.h = height + thickness;
+    
 
 }
 
