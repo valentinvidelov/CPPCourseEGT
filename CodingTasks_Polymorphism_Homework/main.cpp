@@ -16,25 +16,25 @@ public:
         color = c;
     };
     virtual double area() = 0;
-    ~Shape();
+    ~Shape();     //destructor since we are using virt method
 
 protected:
     string color;
 };
 
-class Circle: public Shape{
+class Circle: public Shape{     //inheritance
 public:
     Circle(double r, string c): Shape(c){
         radius = r;
     }
-    double area() override{
+    double area() override{      //overridng virt func
         return 3.14 * radius * radius;
     }
 
 private:
     double radius;
 };
-class Rectangle: public Shape{
+class Rectangle: public Shape{   //inheritance
 public:
     Rectangle(int w, int h, string c): Shape(c){
         width = w;
@@ -53,10 +53,10 @@ void printArea(Shape *shp){
 }
 
 int main(){
-    Shape *c1 = new Circle(5,"Blue");
+    Shape *c1 = new Circle(5,"Blue");  //polymorphism happens here
     Shape *r1 = new Rectangle(20,10,"Red");
 
-    printArea(c1);
+    printArea(c1);                    //and here
     printArea(r1);
 
     return 0;

@@ -15,20 +15,20 @@ public:
         color = c;
     };
     virtual void draw() = 0;
-    ~Shape();
+    ~Shape();  //destructor since we have a virtual function
 protected:
     string color;
 
 };
 
-class Circle: public Shape{
+class Circle: public Shape{    //inheritance
 public:
     Circle(string c): Shape(c){}
     void draw() override{
         cout << "Drawing a " << color << " Circle" << endl;
     }
 };
-class Rectangle: public Shape{
+class Rectangle: public Shape{    //inheritance
 public:
     Rectangle(string c): Shape(c){}
     void draw() override{
@@ -37,7 +37,7 @@ public:
 };
 
 int main(){
-    Shape *c1 = new Circle("Blue");
+    Shape *c1 = new Circle("Blue");  
     Shape *r1 = new Rectangle("Red");
 
     c1->draw();

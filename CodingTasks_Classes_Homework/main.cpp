@@ -13,7 +13,8 @@ using namespace std;
 class Book{
 
 public:
-    Book(string t, string a, int p){
+    //the constructor
+    Book(string t, string a, int p){   
         title = t;
         author = a;
         pages = p;
