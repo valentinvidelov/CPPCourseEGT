@@ -107,14 +107,24 @@ void handleEvents()
 
 void drawRectangle(int width, int height, int thickness)
 {
+    int ww, wh;
+    SDL_GetWindowSize(gWindow, &ww, &wh);
     // SDL_Color col = {255,255,0,255};
     // Uint32 col= {};
-    const SDL_Rect *oRect, *iRect;
-    iRect = drawInnerRectangle(width, height);
-    oRect = drawOuterRectangle(width, height, thickness);
-    SDL_RenderDrawRect(renderer, oRect);
-    SDL_RenderDrawRect(renderer, iRect );
+    // const SDL_Rect *oRect, *iRect;
+    // iRect = drawInnerRectangle(width, height);
+    // oRect = drawOuterRectangle(width, height, thickness);
+    // SDL_RenderDrawRect(renderer, oRect);
+    // SDL_RenderDrawRect(renderer, iRect );
     // SDL_FillRect(NULL, iRect, col);
+    SDL_Rect outlineRect = { ww / 6, wh / 6, ww * 2 / 3, wh * 2 / 3 };
+	SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xFF);
+	// SDL_RenderDrawRect(renderer, &outlineRect);
+	SDL_RenderFillRect(renderer, &outlineRect);
+
+	SDL_Rect fillRect = {ww / 4, wh / 4, ww / 2, wh / 2};
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderFillRect(renderer, &fillRect);
     
 }
 const SDL_Rect* drawOuterRectangle(int width, int height, int thickness) 
